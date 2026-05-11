@@ -634,5 +634,34 @@ tr:last-child td{border-bottom:none}
 </div>
 
 </div><!-- .page -->
+
+<!-- PASSWORD GATE -->
+<div id="pw-gate" style="position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center">
+  <div style="text-align:center;max-width:340px;padding:2rem">
+    <div style="width:48px;height:48px;background:var(--accent);border-radius:12px;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center">
+      <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <div style="font-weight:700;font-size:1.1rem;margin-bottom:0.3rem;color:var(--text)">Documento protegido</div>
+    <div style="font-size:0.82rem;color:var(--muted);margin-bottom:1.2rem">Digite a senha para acessar</div>
+    <input id="pw-input" type="password" placeholder="Senha" style="width:100%;padding:0.7rem 1rem;border:1px solid var(--border);border-radius:8px;font-size:0.9rem;font-family:Arial,sans-serif;outline:none;text-align:center" autofocus>
+    <div id="pw-error" style="color:var(--red);font-size:0.78rem;margin-top:0.5rem;display:none">Senha incorreta</div>
+  </div>
+</div>
+<script>
+(function(){
+  if(sessionStorage.getItem('pw-ok')==='1'){document.getElementById('pw-gate').style.display='none'}
+  document.getElementById('pw-input').addEventListener('keydown',function(e){
+    if(e.key==='Enter'){
+      if(this.value==='milena2026'){
+        sessionStorage.setItem('pw-ok','1');
+        document.getElementById('pw-gate').style.display='none';
+      }else{
+        document.getElementById('pw-error').style.display='block';
+        this.value='';this.focus();
+      }
+    }
+  });
+})();
+</script>
 </body>
 </html>
