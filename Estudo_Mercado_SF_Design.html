@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudo de Mercado — Product Design em San Francisco (2025-2026)</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#F7F7F7;
+  --white:#FFFFFF;
+  --border:#E0E0E0;
+  --border-light:#F0F0F0;
+  --text:#1A1A1A;
+  --text2:#666666;
+  --muted:#888888;
+  --red:#C1392B;
+  --red-bg:#FDE8E5;
+  --red-border:#F5C6BF;
+  --green:#0D7C4A;
+  --green-bg:#E6F4ED;
+  --green-border:#B8DBCA;
+  --blue:#2323D1;
+  --blue-bg:#EAEBFA;
+  --blue-border:#C5C9E8;
+  --amber:#EC7000;
+  --amber-bg:#FFF5EB;
+  --amber-border:#FDDCB5;
+  --accent:#EC7000;
+  --navy:#0D1B6E;
+  --purple:#2323D1;
+  --purple-bg:#EAEBFA;
+  --purple-border:#C5C9E8;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.65;
+  font-size:14px;
+}
+
+.page{max-width:900px;margin:0 auto;padding:3rem 2.5rem 4rem}
+
+h1{font-family:Arial,Helvetica,sans-serif;font-size:1.9rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:0.2rem}
+h2{font-family:Arial,Helvetica,sans-serif;font-size:1.25rem;font-weight:600;letter-spacing:-0.3px;margin-bottom:0}
+h3{font-family:Arial,Helvetica,sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:0.6rem}
+h4{font-family:Arial,Helvetica,sans-serif;font-size:0.9rem;font-weight:600;margin-bottom:0.5rem}
+
+.subtitle{color:var(--muted);font-size:0.85rem;margin-bottom:2rem;max-width:720px;line-height:1.5}
+
+.section{margin-bottom:2.5rem}
+.section-title{display:flex;align-items:center;gap:0.6rem;margin-bottom:1.2rem;padding-bottom:0.5rem;border-bottom:2px solid var(--navy)}
+.section-title .num{font-family:Arial,Helvetica,sans-serif;font-size:1rem;font-weight:700;color:var(--accent);min-width:1.4rem}
+
+.card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.3rem;margin-bottom:1.2rem;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+
+table{width:100%;border-collapse:collapse;font-size:0.84rem}
+th{text-align:left;font-weight:600;padding:0.6rem 0.8rem;border-bottom:2px solid var(--border);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted)}
+td{padding:0.55rem 0.8rem;border-bottom:1px solid var(--border-light)}
+tr:last-child td{border-bottom:none}
+
+.val-red{color:var(--red);font-weight:600}
+.val-green{color:var(--green);font-weight:600}
+.val-blue{color:var(--blue);font-weight:600}
+
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:2rem;background:var(--white);box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.kpi{padding:1.2rem 1rem;border-right:1px solid var(--border-light)}
+.kpi:last-child{border-right:none}
+.kpi-label{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:0.3rem}
+.kpi-value{font-family:Arial,Helvetica,sans-serif;font-size:1.4rem;font-weight:700;line-height:1.1}
+.kpi-detail{font-size:0.72rem;color:var(--muted);margin-top:0.2rem}
+
+.bar-chart{display:flex;flex-direction:column;gap:0.5rem;margin:0.8rem 0}
+.bar-row{display:flex;align-items:center;gap:0.6rem}
+.bar-label{width:110px;font-size:0.78rem;font-weight:500;text-align:right;flex-shrink:0}
+.bar-track{flex:1;height:28px;background:var(--border-light);border-radius:6px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 0.6rem;font-size:0.72rem;font-weight:600;color:white;white-space:nowrap}
+.bar-value{font-size:0.78rem;font-weight:600;width:55px;text-align:right;flex-shrink:0}
+
+.footer{text-align:center;padding:2rem 0 1rem;font-size:0.72rem;color:var(--muted);line-height:1.8;border-top:1px solid var(--border);margin-top:2rem}
+
+@media(max-width:600px){
+  .page{padding:1.5rem 1rem 2rem}
+  .kpi-strip{grid-template-columns:repeat(2,1fr)}
+  .kpi{border-bottom:1px solid var(--border-light)}
+  .bar-label{width:80px;font-size:0.7rem}
+}
+
+@media print{
+  body{background:white;font-size:11px}
+  .page{padding:1rem;max-width:100%}
+  .card{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div style="margin-bottom:2rem">
+  <div style="font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--navy);margin-bottom:0.5rem">Estudo de Mercado Completo</div>
+  <h1>Product Design em San Francisco</h1>
+  <p class="subtitle">
+    Análise salarial detalhada por nível — do Pleno ao Director — com breakdown de compensação anual, benefícios, impostos e o <strong>líquido mensal real</strong> que cada cargo recebe em San Francisco, Califórnia.<br>
+    <span style="color:var(--accent);font-weight:600">Maio 2026 · Câmbio referência: R$ 4,90/USD</span>
+  </p>
+</div>
+
+<!-- KPIs -->
+<div class="kpi-strip">
+  <div class="kpi">
+    <div class="kpi-label">Salários analisados</div>
+    <div class="kpi-value" style="color:var(--blue)">5 níveis</div>
+    <div class="kpi-detail">Pleno → Director</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Fonte principal</div>
+    <div class="kpi-value" style="color:var(--text)">4 bases</div>
+    <div class="kpi-detail">Glassdoor, Levels, PayScale, Salary</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Custo de vida SF</div>
+    <div class="kpi-value" style="color:var(--red)">3,8×</div>
+    <div class="kpi-detail">vs São Paulo</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Impostos CA</div>
+    <div class="kpi-value" style="color:var(--red)">~39%</div>
+    <div class="kpi-detail">Federal + State + FICA</div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 1: PANORAMA DO MERCADO                                  -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-title">
+    <span class="num">01</span>
+    <h2>Panorama: Compensação por Nível</h2>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-bottom:0.4rem">Total Compensation Anual — Product Design, SF Bay Area</h4>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem">Total comp = base salary + annual bonus + equity (RSU/stock). Valores em USD. Fontes: Glassdoor, Levels.fyi, PayScale, Salary.com (2025-2026).</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Nível</th>
+          <th style="text-align:center">P25</th>
+          <th style="text-align:center">Mediana</th>
+          <th style="text-align:center">P75</th>
+          <th style="text-align:center">P90</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Product Designer</strong><br><span style="font-size:0.72rem;color:var(--muted)">IC Pleno · 3-5 anos</span></td>
+          <td style="text-align:center">$145k</td>
+          <td style="text-align:center">$175k</td>
+          <td style="text-align:center">$220k</td>
+          <td style="text-align:center">$255k</td>
+        </tr>
+        <tr>
+          <td><strong>Senior Product Designer</strong><br><span style="font-size:0.72rem;color:var(--muted)">IC Sênior · 5-8 anos</span></td>
+          <td style="text-align:center">$205k</td>
+          <td style="text-align:center">$245k</td>
+          <td style="text-align:center">$305k</td>
+          <td style="text-align:center">$350k</td>
+        </tr>
+        <tr style="background:var(--green-bg);font-weight:600">
+          <td><strong>Product Design Manager ★</strong><br><span style="font-size:0.72rem;color:var(--green);font-weight:500">Gestão · 8-12+ anos</span></td>
+          <td style="text-align:center">$275k</td>
+          <td style="text-align:center">$310k</td>
+          <td style="text-align:center">$381k</td>
+          <td style="text-align:center">$420k</td>
+        </tr>
+        <tr>
+          <td><strong>Senior Design Manager</strong><br><span style="font-size:0.72rem;color:var(--muted)">Gestão Sênior · 12-15 anos</span></td>
+          <td style="text-align:center">$330k</td>
+          <td style="text-align:center">$370k</td>
+          <td style="text-align:center">$440k</td>
+          <td style="text-align:center">$490k</td>
+        </tr>
+        <tr>
+          <td><strong>Design Director</strong><br><span style="font-size:0.72rem;color:var(--muted)">Liderança · 15+ anos</span></td>
+          <td style="text-align:center">$365k</td>
+          <td style="text-align:center">$400k</td>
+          <td style="text-align:center">$480k</td>
+          <td style="text-align:center">$550k</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:0.78rem;color:var(--muted);margin-top:0.5rem">★ Product Design Manager = equivalência direta ao nível Gerente Sênior de Design no Itaú.</div>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-bottom:0.6rem">Visualização: Faixas Salariais por Nível</h4>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">Designer</div>
+        <div class="bar-track"><div class="bar-fill" style="width:36%;background:#AAAAAA">$145k–$220k</div></div>
+        <div class="bar-value" style="color:var(--muted)">P50 $175k</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Senior</div>
+        <div class="bar-track"><div class="bar-fill" style="width:55%;background:var(--blue)">$205k–$305k</div></div>
+        <div class="bar-value" style="color:var(--blue)">P50 $245k</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label" style="font-weight:700;color:var(--green)">Manager ★</div>
+        <div class="bar-track"><div class="bar-fill" style="width:70%;background:var(--green)">$275k–$381k</div></div>
+        <div class="bar-value" style="color:var(--green);font-weight:700">P50 $310k</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Sr Manager</div>
+        <div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--navy)">$330k–$440k</div></div>
+        <div class="bar-value" style="color:var(--navy)">P50 $370k</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Director</div>
+        <div class="bar-track"><div class="bar-fill" style="width:88%;background:var(--blue)">$365k–$480k</div></div>
+        <div class="bar-value" style="color:var(--blue)">P50 $400k</div>
+      </div>
+    </div>
+    <div style="font-size:0.72rem;color:var(--muted)">Barras = range P25–P75. Escala proporcional ao P75 do Director ($480k).</div>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-bottom:0.4rem">Financial Services: Premium sobre Tech Geral</h4>
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:0.8rem">
+      Bancos e instituições financeiras na Bay Area pagam um <strong>premium de 10-15%</strong> sobre o mercado tech geral para Design Managers, refletindo compliance, regulação e complexidade do produto. Referências: JPMorgan, Goldman Sachs, Bank of America, Wells Fargo, Visa, Stripe.
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.5rem">
+      <div style="text-align:center;padding:1rem;background:var(--blue-bg);border-radius:8px;border:1px solid var(--blue-border)">
+        <div style="font-size:0.68rem;font-weight:600;text-transform:uppercase;color:var(--muted)">Tech Geral (SF)</div>
+        <div style="font-family:Arial,Helvetica,sans-serif;font-size:1.5rem;font-weight:700;color:var(--blue)">$310k</div>
+        <div style="font-size:0.72rem;color:var(--text2)">Mediana Design Manager</div>
+      </div>
+      <div style="text-align:center;padding:1rem;background:var(--green-bg);border-radius:8px;border:1px solid var(--green-border)">
+        <div style="font-size:0.68rem;font-weight:600;text-transform:uppercase;color:var(--muted)">Financial Services (SF)</div>
+        <div style="font-family:Arial,Helvetica,sans-serif;font-size:1.5rem;font-weight:700;color:var(--green)">$340k</div>
+        <div style="font-size:0.72rem;color:var(--text2)">Mediana Design Manager</div>
+      </div>
+    </div>
+    <div style="font-size:0.72rem;color:var(--muted)">Fonte: Glassdoor Financial Services filter, SF Bay Area, 2025-2026.</div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 2: BREAKDOWN DA COMPENSAÇÃO                             -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-title">
+    <span class="num">02</span>
+    <h2>Breakdown: Como se Compõe o Total Comp</h2>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-bottom:0.4rem">Composição Típica por Nível (SF, Tech/FinServ)</h4>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.8rem">Estrutura padrão de compensação em empresas de tecnologia e serviços financeiros na Bay Area.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Componente</th>
+          <th style="text-align:center">Designer<br><span style="font-weight:400;font-size:0.62rem">$175k total</span></th>
+          <th style="text-align:center">Senior<br><span style="font-weight:400;font-size:0.62rem">$245k total</span></th>
+          <th style="text-align:center;background:var(--green-bg)">Manager ★<br><span style="font-weight:400;font-size:0.62rem">$345k total</span></th>
+          <th style="text-align:center">Director<br><span style="font-weight:400;font-size:0.62rem">$400k total</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:600">Base Salary</td>
+          <td style="text-align:center">$140k<br><span style="font-size:0.72rem;color:var(--muted)">80%</span></td>
+          <td style="text-align:center">$175k<br><span style="font-size:0.72rem;color:var(--muted)">71%</span></td>
+          <td style="text-align:center;background:var(--green-bg)">$210k<br><span style="font-size:0.72rem;color:var(--green)">61%</span></td>
+          <td style="text-align:center">$240k<br><span style="font-size:0.72rem;color:var(--muted)">60%</span></td>
+        </tr>
+        <tr>
+          <td>Annual Bonus</td>
+          <td style="text-align:center">$15k<br><span style="font-size:0.72rem;color:var(--muted)">9%</span></td>
+          <td style="text-align:center">$30k<br><span style="font-size:0.72rem;color:var(--muted)">12%</span></td>
+          <td style="text-align:center;background:var(--green-bg)">$55k<br><span style="font-size:0.72rem;color:var(--green)">16%</span></td>
+          <td style="text-align:center">$80k<br><span style="font-size:0.72rem;color:var(--muted)">20%</span></td>
+        </tr>
+        <tr>
+          <td>Equity (RSU/Stock)</td>
+          <td style="text-align:center">$20k<br><span style="font-size:0.72rem;color:var(--muted)">11%</span></td>
+          <td style="text-align:center">$40k<br><span style="font-size:0.72rem;color:var(--muted)">16%</span></td>
+          <td style="text-align:center;background:var(--green-bg)">$80k<br><span style="font-size:0.72rem;color:var(--green)">23%</span></td>
+          <td style="text-align:center">$80k<br><span style="font-size:0.72rem;color:var(--muted)">20%</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:0.78rem;color:var(--muted);margin-top:0.5rem">
+      Nota: Em expatriações sob Lei 7.064, equity geralmente é substituída por bônus/gratificação mantida do contrato CLT.<br>
+      O Manager ★ com bônus de ~$100k (equivalente ao bônus brasileiro) está dentro da faixa 16-29% do total comp — compatível com mercado.
+    </div>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-bottom:0.4rem">Benefícios Padrão nos EUA (além do salário)</h4>
+    <table>
+      <thead>
+        <tr><th>Benefício</th><th>Valor típico (anual)</th><th>Notas</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:600">Health Insurance</td><td>$8k–$15k</td><td>Pago pela empresa (80-100% do prêmio). PPO ou HMO.</td></tr>
+        <tr><td style="font-weight:600">401(k) Match</td><td>$10k–$14k</td><td>50-100% match até 6% do salário. Limite 2026: $23.500.</td></tr>
+        <tr><td>Dental + Vision</td><td>$1.5k–$2.5k</td><td>Quase universal em tech/FinServ.</td></tr>
+        <tr><td>Life Insurance</td><td>$500–$1k</td><td>1-2× do salário anual.</td></tr>
+        <tr><td>PTO (férias pagas)</td><td>15-25 dias</td><td>Managers tipicamente 20+ dias. Unlimited PTO em ~30% das tech cos.</td></tr>
+        <tr><td>Parental Leave</td><td>12-20 semanas</td><td>CA FMLA + company policy. FinServ média: 16 semanas.</td></tr>
+        <tr style="font-weight:600;background:var(--green-bg)">
+          <td>Valor total benefícios</td>
+          <td>$20k–$32k/ano</td>
+          <td>Não incluso no total comp. É "on top" do salário.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 3: LÍQUIDO MENSAL REAL                                  -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-title">
+    <span class="num">03</span>
+    <h2>O Líquido Mensal Real — O Que Cai na Conta</h2>
+  </div>
+
+  <p style="font-size:0.85rem;color:var(--text2);margin-bottom:1.2rem">
+    O total comp anual impressiona no papel, mas o que define a qualidade de vida em San Francisco é o <strong>líquido mensal</strong> — o que sobra depois de impostos federais, estaduais (CA) e FICA, dividido por 12. Bônus e equity são pagos separadamente (1× ou 4×/ano) e não compõem o fluxo mensal regular.
+  </p>
+
+  <div class="card">
+    <h4 style="margin-bottom:0.4rem">Bruto vs Líquido Mensal por Nível (só base salary)</h4>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.8rem">
+      Cálculo: base salary anual ÷ 12 = bruto/mês → impostos (Federal + CA + FICA) → líquido/mês. Sem bônus, sem equity — apenas o que cai todo mês na conta.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Nível</th>
+          <th style="text-align:center">Base Salary<br><span style="font-weight:400;font-size:0.62rem">anual</span></th>
+          <th style="text-align:center">Bruto/mês</th>
+          <th style="text-align:center">Impostos<br><span style="font-weight:400;font-size:0.62rem">Fed+CA+FICA</span></th>
+          <th style="text-align:center">Líquido/mês</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Designer</strong><br><span style="font-size:0.72rem;color:var(--muted)">Pleno</span></td>
+          <td style="text-align:center">$140k</td>
+          <td style="text-align:center;font-weight:600">$11.667</td>
+          <td style="text-align:center;color:var(--red)">~34%</td>
+          <td style="text-align:center;font-weight:600">$7.750</td>
+        </tr>
+        <tr>
+          <td><strong>Senior</strong></td>
+          <td style="text-align:center">$175k</td>
+          <td style="text-align:center;font-weight:600">$14.583</td>
+          <td style="text-align:center;color:var(--red)">~35%</td>
+          <td style="text-align:center;font-weight:600">$9.417</td>
+        </tr>
+        <tr style="background:var(--green-bg)">
+          <td><strong style="color:var(--green)">Manager ★</strong></td>
+          <td style="text-align:center">$245k</td>
+          <td style="text-align:center;font-weight:700;color:var(--green)">$20.417</td>
+          <td style="text-align:center;color:var(--red)">~37%</td>
+          <td style="text-align:center;font-weight:700;color:var(--green)">$12.917</td>
+        </tr>
+        <tr>
+          <td><strong>Director</strong></td>
+          <td style="text-align:center">$240k</td>
+          <td style="text-align:center;font-weight:600">$20.000</td>
+          <td style="text-align:center;color:var(--red)">~39%</td>
+          <td style="text-align:center;font-weight:600">$12.250</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:0.78rem;color:var(--muted);margin-top:0.5rem">
+      Impostos incluem Federal Income Tax + California State Tax (até 13.3%) + FICA (Social Security + Medicare). A taxa efetiva sobe com o salário.
+    </div>
+  </div>
+
+  <div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px;padding:1.3rem;margin-bottom:1.2rem">
+    <h4 style="color:var(--amber);margin-bottom:0.5rem">O que esses números significam na prática</h4>
+    <div style="font-size:0.85rem;line-height:1.8">
+      <strong>Um Designer Pleno ($175k total comp)</strong> leva para casa ~$7.750/mês. Depois do aluguel de um studio ou 1BR (~$3.500), restam ~$4.250 para tudo: alimentação ($600), transporte ($250), saúde ($150), lazer ($400), e outros — sobrando menos de $2.800/mês para poupança ou investimento. É uma vida <strong>funcional mas apertada</strong> em SF.<br><br>
+      <strong>Um Design Manager ($345k total comp)</strong> leva ~$12.900/mês com base de $245k. Depois do aluguel 2BR ($5.000), restam ~$7.900 — margem suficiente para viver com conforto, mas não com folga. Despesas de vida em SF (alimentação, transporte, saúde, lazer) somam facilmente $2.080/mês, deixando ~$5.820 para poupança, investimentos ou transferências.<br><br>
+      <strong>A diferença de qualidade de vida entre Pleno e Manager não é proporcional à diferença salarial.</strong> O Pleno ganha 2× menos mas o custo de vida é o mesmo para ambos. O aluguel come 45% do líquido do Pleno vs 39% do Manager.
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 4: COMPARAÇÃO VISUAL DO DIA-A-DIA                       -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-title">
+    <span class="num">04</span>
+    <h2>Vida Real: Pleno vs Manager em San Francisco</h2>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem">
+    <!-- PLENO -->
+    <div class="card" style="border-color:var(--blue-border)">
+      <div style="text-align:center;margin-bottom:0.8rem">
+        <span style="font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--blue)">Product Designer (Pleno)</span>
+        <div style="font-family:Arial,Helvetica,sans-serif;font-size:1.6rem;font-weight:700;color:var(--blue);margin-top:0.2rem">$175k/ano</div>
+        <div style="font-size:0.75rem;color:var(--muted)">~$7.750/mês líquido</div>
+      </div>
+      <table style="font-size:0.78rem">
+        <tbody>
+          <tr><td>Moradia</td><td style="text-align:right;font-weight:600">$3.500<br><span style="font-size:0.68rem;color:var(--muted)">Studio/1BR</span></td></tr>
+          <tr><td>Alimentação</td><td style="text-align:right">$500</td></tr>
+          <tr><td>Transporte</td><td style="text-align:right">$200</td></tr>
+          <tr><td>Saúde (copay)</td><td style="text-align:right">$100</td></tr>
+          <tr><td>Lazer</td><td style="text-align:right">$300</td></tr>
+          <tr><td>Outros</td><td style="text-align:right">$350</td></tr>
+          <tr style="font-weight:700;border-top:2px solid var(--border)">
+            <td>Total despesas</td><td style="text-align:right;color:var(--red)">$4.950</td>
+          </tr>
+          <tr style="background:var(--blue-bg)">
+            <td style="font-weight:700">Sobra mensal</td>
+            <td style="text-align:right;font-weight:700;color:var(--blue)">$2.800</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:0.5rem;line-height:1.5">
+        Vive em studio ou divide apt. Cozinha em casa na maioria dos dias. Lazer limitado. Não tem margem para imprevistos grandes.
+      </div>
+    </div>
+
+    <!-- MANAGER -->
+    <div class="card" style="border-color:var(--green-border)">
+      <div style="text-align:center;margin-bottom:0.8rem">
+        <span style="font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--green)">Design Manager ★</span>
+        <div style="font-family:Arial,Helvetica,sans-serif;font-size:1.6rem;font-weight:700;color:var(--green);margin-top:0.2rem">$345k/ano</div>
+        <div style="font-size:0.75rem;color:var(--muted)">~$12.900/mês líquido (base $245k)</div>
+      </div>
+      <table style="font-size:0.78rem">
+        <tbody>
+          <tr><td>Moradia</td><td style="text-align:right;font-weight:600">$5.000<br><span style="font-size:0.68rem;color:var(--muted)">2BR bom bairro</span></td></tr>
+          <tr><td>Alimentação</td><td style="text-align:right">$600</td></tr>
+          <tr><td>Transporte</td><td style="text-align:right">$250</td></tr>
+          <tr><td>Saúde (copay)</td><td style="text-align:right">$150</td></tr>
+          <tr><td>Lazer</td><td style="text-align:right">$400</td></tr>
+          <tr><td>Outros</td><td style="text-align:right">$450</td></tr>
+          <tr style="font-weight:700;border-top:2px solid var(--border)">
+            <td>Total despesas</td><td style="text-align:right;color:var(--red)">$6.850</td>
+          </tr>
+          <tr style="background:var(--green-bg)">
+            <td style="font-weight:700">Sobra mensal</td>
+            <td style="text-align:right;font-weight:700;color:var(--green)">$6.050</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:0.5rem;line-height:1.5">
+        Vive em 2BR confortável. Come fora 2-3×/semana. Margem para poupança, investimento e viagens. Vida estável mas não luxuosa para SF.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-bottom:0.4rem">Proporção Moradia / Líquido — O Teste de Sustentabilidade</h4>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.8rem">Regra saudável: moradia não deve ultrapassar 30% do líquido. Em SF, isso é quase impossível nos níveis iniciais.</p>
+    <table>
+      <thead><tr><th>Nível</th><th style="text-align:center">Líquido/mês</th><th style="text-align:center">Aluguel</th><th style="text-align:center">% do líquido</th><th style="text-align:center">Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Designer (Pleno)</td>
+          <td style="text-align:center">$7.750</td>
+          <td style="text-align:center">$3.500</td>
+          <td style="text-align:center;font-weight:600;color:var(--red)">45%</td>
+          <td style="text-align:center"><span style="font-size:0.72rem;background:var(--red-bg);color:var(--red);padding:0.15rem 0.5rem;border-radius:100px;font-weight:600">Apertado</span></td>
+        </tr>
+        <tr>
+          <td>Senior</td>
+          <td style="text-align:center">$9.417</td>
+          <td style="text-align:center">$4.200</td>
+          <td style="text-align:center;font-weight:600;color:var(--amber)">45%</td>
+          <td style="text-align:center"><span style="font-size:0.72rem;background:var(--amber-bg);color:var(--amber);padding:0.15rem 0.5rem;border-radius:100px;font-weight:600">Apertado</span></td>
+        </tr>
+        <tr style="background:var(--green-bg)">
+          <td style="font-weight:600;color:var(--green)">Manager ★</td>
+          <td style="text-align:center;font-weight:600">$12.900</td>
+          <td style="text-align:center">$5.000</td>
+          <td style="text-align:center;font-weight:600;color:var(--amber)">39%</td>
+          <td style="text-align:center"><span style="font-size:0.72rem;background:var(--amber-bg);color:var(--amber);padding:0.15rem 0.5rem;border-radius:100px;font-weight:600">Limite</span></td>
+        </tr>
+        <tr>
+          <td>Director</td>
+          <td style="text-align:center">$12.250</td>
+          <td style="text-align:center">$5.500</td>
+          <td style="text-align:center;font-weight:600;color:var(--amber)">45%</td>
+          <td style="text-align:center"><span style="font-size:0.72rem;background:var(--amber-bg);color:var(--amber);padding:0.15rem 0.5rem;border-radius:100px;font-weight:600">Limite</span></td>
+        </tr>
+        <tr style="background:var(--green-bg)">
+          <td style="font-weight:600;color:var(--green)">Manager + Housing ★</td>
+          <td style="text-align:center;font-weight:600">$12.900</td>
+          <td style="text-align:center;color:var(--green)">$0 (coberto)</td>
+          <td style="text-align:center;font-weight:600;color:var(--green)">0%</td>
+          <td style="text-align:center"><span style="font-size:0.72rem;background:var(--green-bg);color:var(--green);padding:0.15rem 0.5rem;border-radius:100px;font-weight:600;border:1px solid var(--green-border)">Saudável</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:0.78rem;color:var(--muted);margin-top:0.5rem">
+      O housing allowance é o que torna a equação sustentável para o Manager expatriado — sem ele, até o nível de gestão vive no limite em SF.
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 5: POSICIONAMENTO DA PROPOSTA                           -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-title">
+    <span class="num">05</span>
+    <h2>Posicionamento da Proposta vs Mercado</h2>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-bottom:0.4rem">Onde a proposta se posiciona</h4>
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:1rem">
+      A proposta considera três cenários, todos posicionados <strong>entre P50 e P75</strong> do mercado para Design Manager em Financial Services (SF). Nenhum cenário ultrapassa o P75 ($381k) ou se aproxima de Senior Manager ($370k mediana).
+    </p>
+
+    <!-- Escala visual -->
+    <div style="position:relative;margin:1.5rem 0 2.5rem;padding:0 0.5rem">
+      <!-- Track -->
+      <div style="height:8px;background:var(--border-light);border-radius:4px;position:relative">
+        <!-- P25-P50 -->
+        <div style="position:absolute;left:0;width:35%;height:100%;background:#E0E0E0;border-radius:4px 0 0 4px"></div>
+        <!-- P50-P75 range (where proposals sit) -->
+        <div style="position:absolute;left:35%;width:30%;height:100%;background:var(--green);opacity:0.2"></div>
+        <!-- P75+ -->
+        <div style="position:absolute;left:65%;width:35%;height:100%;background:#E0E0E0;border-radius:0 4px 4px 0"></div>
+      </div>
+      <!-- Markers -->
+      <div style="position:absolute;left:0;top:-6px;font-size:0.62rem;color:var(--muted)">$275k<br>P25</div>
+      <div style="position:absolute;left:35%;top:-6px;transform:translateX(-50%);font-size:0.62rem;color:var(--blue);font-weight:600">$310k<br>P50</div>
+      <div style="position:absolute;left:65%;top:-6px;transform:translateX(-50%);font-size:0.62rem;color:var(--green);font-weight:600">$381k<br>P75</div>
+      <div style="position:absolute;right:0;top:-6px;font-size:0.62rem;color:var(--muted)">$420k<br>P90</div>
+      <!-- Proposals -->
+      <div style="position:absolute;left:40%;top:18px;transform:translateX(-50%);text-align:center">
+        <div style="width:2px;height:10px;background:var(--green);margin:0 auto"></div>
+        <div style="font-size:0.68rem;font-weight:600;color:var(--green)">$345k+hsg</div>
+      </div>
+      <div style="position:absolute;left:46%;top:18px;transform:translateX(-50%);text-align:center">
+        <div style="width:2px;height:10px;background:var(--text);margin:0 auto"></div>
+        <div style="font-size:0.68rem;font-weight:600">$350k</div>
+      </div>
+      <div style="position:absolute;left:58%;top:18px;transform:translateX(-50%);text-align:center">
+        <div style="width:2px;height:10px;background:var(--text);margin:0 auto"></div>
+        <div style="font-size:0.68rem;font-weight:600">$380k</div>
+      </div>
+    </div>
+
+    <table style="margin-top:2rem">
+      <thead>
+        <tr>
+          <th>Cenário</th>
+          <th style="text-align:center">Total Comp</th>
+          <th style="text-align:center">Posição no mercado</th>
+          <th style="text-align:center">vs P50 ($310k)</th>
+          <th style="text-align:center">vs P75 ($381k)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sem tax eq · sem housing</td>
+          <td style="text-align:center;font-weight:600">$380k</td>
+          <td style="text-align:center;font-size:0.78rem">P75</td>
+          <td style="text-align:center;font-size:0.78rem;color:var(--green)">+23%</td>
+          <td style="text-align:center;font-size:0.78rem;color:var(--muted)">≈ P75</td>
+        </tr>
+        <tr>
+          <td>Com tax eq · sem housing</td>
+          <td style="text-align:center;font-weight:600">$350k</td>
+          <td style="text-align:center;font-size:0.78rem">P50–P75</td>
+          <td style="text-align:center;font-size:0.78rem;color:var(--green)">+13%</td>
+          <td style="text-align:center;font-size:0.78rem;color:var(--red)">−8%</td>
+        </tr>
+        <tr style="background:var(--green-bg)">
+          <td style="font-weight:600;color:var(--green)">Com tax eq · com housing</td>
+          <td style="text-align:center;font-weight:600;color:var(--green)">$345k + hsg</td>
+          <td style="text-align:center;font-size:0.78rem;color:var(--green)">P50–P75</td>
+          <td style="text-align:center;font-size:0.78rem;color:var(--green)">+11%</td>
+          <td style="text-align:center;font-size:0.78rem;color:var(--red)">−9%</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:0.78rem;color:var(--muted);margin-top:0.5rem">
+      Todos os cenários estão abaixo do P75. A proposta preferencial ($345k + housing) está 9% abaixo do P75 — posição conservadora e defensável.
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 6: CONCLUSÃO                                            -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-title">
+    <span class="num">06</span>
+    <h2>Conclusão</h2>
+  </div>
+
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:10px;padding:1.5rem">
+    <div style="font-size:0.95rem;line-height:1.8">
+      <strong style="color:var(--green);font-size:1rem">A proposta está dentro do mercado.</strong><br><br>
+      Os três cenários se posicionam entre P50 e P75 para Product Design Manager em Financial Services na Bay Area. A proposta preferencial ($345k + tax eq + housing) está <strong>11% acima da mediana</strong> e <strong>9% abaixo do P75</strong> — uma posição conservadora que reflete o nível de gestão, a complexidade fiscal da expatriação e o custo de vida da cidade.<br><br>
+      Mesmo comparando com o mercado tech geral (não só FinServ), os valores se mantêm dentro da faixa para o nível. Um Designer Pleno em SF vive apertado com $175k; um Manager precisa de $345k+ apenas para ter margem mensal razoável depois de impostos e moradia.<br><br>
+      <strong>Os valores não estão fora do mercado — estão exatamente onde deveriam estar para o nível e a localidade.</strong>
+    </div>
+  </div>
+</div>
+
+
+<div class="footer">
+  Estudo de Mercado — Product Design em San Francisco · Maio 2026<br>
+  Fontes: <a href="https://www.glassdoor.com" target="_blank" style="color:var(--accent)">Glassdoor</a> · <a href="https://www.levels.fyi" target="_blank" style="color:var(--accent)">Levels.fyi</a> · <a href="https://www.payscale.com" target="_blank" style="color:var(--accent)">PayScale</a> · <a href="https://www.salary.com" target="_blank" style="color:var(--accent)">Salary.com</a> · Mercer International Assignments Survey 2025<br>
+  Câmbio referência: R$ 4,90/USD
+</div>
+
+</div><!-- .page -->
+</body>
+</html>
