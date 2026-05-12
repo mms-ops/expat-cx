@@ -88,6 +88,10 @@ tr:last-child td{border-bottom:none}
 .kpi-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:0.3rem}
 .kpi-value{font-family:Arial,sans-serif;font-size:1.4rem;font-weight:700;line-height:1.1}
 .kpi-detail{font-size:0.72rem;color:var(--muted);margin-top:0.2rem}
+.kpi-link{cursor:pointer;position:relative;transition:background 0.2s}
+.kpi-link:hover{background:var(--bg)}
+.kpi-plus{position:absolute;top:0.5rem;right:0.5rem;width:20px;height:20px;border-radius:50%;background:var(--border-light);color:var(--muted);font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.kpi-link:hover .kpi-plus{background:var(--accent);color:white}
 
 /* Tooltips */
 abbr[title]{text-decoration:underline dotted var(--muted);text-underline-offset:3px;cursor:help;position:relative}
@@ -163,25 +167,29 @@ abbr[title]:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);l
 
 <!-- KPIs -->
 <div class="kpi-strip">
-  <div class="kpi">
+  <div class="kpi kpi-link" data-tab="mercado" data-anchor="sec-mercado-ref">
     <div class="kpi-label">Estudo SF (<abbr title="Faixa P50–P75 — entre a mediana e o percentil 75 do mercado para Senior Design Manager em SF Bay Area">P50–P75</abbr>)</div>
     <div class="kpi-value" style="color:var(--blue)">$370–440k</div>
     <div class="kpi-detail">Senior Design Manager</div>
+    <div class="kpi-plus">+</div>
   </div>
-  <div class="kpi">
+  <div class="kpi kpi-link" data-tab="detalhes" data-anchor="sec-comp-brasil">
     <div class="kpi-label">Comp Atual Brasil</div>
     <div class="kpi-value" style="color:var(--accent)">R$ 944k</div>
     <div class="kpi-detail">salário + bônus (~$193k)</div>
+    <div class="kpi-plus">+</div>
   </div>
-  <div class="kpi">
+  <div class="kpi kpi-link" data-tab="mercado" data-anchor="sec-impacto-real">
     <div class="kpi-label">Gap Tributário</div>
     <div class="kpi-value" style="color:var(--red)">+12pp</div>
     <div class="kpi-detail">CA ~39% vs BR ~27%</div>
+    <div class="kpi-plus">+</div>
   </div>
-  <div class="kpi">
+  <div class="kpi kpi-link" data-tab="mercado" data-anchor="sec-custo-vida">
     <div class="kpi-label">Custo de Vida SF</div>
     <div class="kpi-value" style="color:var(--red)">2,5×</div>
     <div class="kpi-detail">vs São Paulo (despesas fixas)</div>
+    <div class="kpi-plus">+</div>
   </div>
 </div>
 
@@ -297,7 +305,7 @@ abbr[title]:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);l
 <div class="tab-panel" id="tab-mercado">
 
 
-<div class="section">
+<div class="section" id="sec-mercado-ref">
   <div class="section-title">
     <span class="num">01</span>
     <h2>Referência de Mercado — San Francisco, CA</h2>
@@ -396,7 +404,7 @@ abbr[title]:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);l
 
 
 <!-- SEÇÃO 02: IMPACTO REAL -->
-<div class="section">
+<div class="section" id="sec-impacto-real">
   <div class="section-title">
     <span class="num">02</span>
     <h2>O Impacto Real — Impostos e Custo de Vida</h2>
@@ -429,7 +437,7 @@ abbr[title]:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);l
   </div>
 
   <!-- CUSTO DE VIDA -->
-  <div class="card">
+  <div class="card" id="sec-custo-vida">
     <h4 style="margin-bottom:0.4rem">Custo de Vida — San Francisco vs São Paulo</h4>
     <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.8rem">Despesas mensais fixas para mesmo padrão de vida. Moradia: 2BR em bairro equivalente. Fontes: Numbeo, Expatistan, Mercer Cost of Living 2025.</p>
     <table>
@@ -594,7 +602,7 @@ abbr[title]:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);l
 <!-- ============================================================ -->
 <div class="tab-panel" id="tab-detalhes">
 
-<div class="section">
+<div class="section" id="sec-comp-brasil">
   <div class="section-title">
     <span class="num">01</span>
     <h2>Remuneração Atual — Brasil</h2>
@@ -901,6 +909,28 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
     btn.classList.add('active');
     document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
     window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop - 20, behavior: 'smooth' });
+  });
+});
+
+// KPI links — click (+) to navigate to tab + anchor
+document.querySelectorAll('.kpi-link').forEach(function(kpi) {
+  kpi.addEventListener('click', function() {
+    var targetTab = kpi.dataset.tab;
+    var targetAnchor = kpi.dataset.anchor;
+    // Switch tab
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    var tabBtn = document.querySelector('.tab-btn[data-tab="' + targetTab + '"]');
+    if (tabBtn) tabBtn.classList.add('active');
+    var tabPanel = document.getElementById('tab-' + targetTab);
+    if (tabPanel) tabPanel.classList.add('active');
+    // Scroll to anchor after tab switch
+    setTimeout(function() {
+      var anchor = document.getElementById(targetAnchor);
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   });
 });
 </script>
