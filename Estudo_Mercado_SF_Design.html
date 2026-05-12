@@ -644,23 +644,27 @@ tr:last-child td{border-bottom:none}
     <div style="font-weight:700;font-size:1.1rem;margin-bottom:0.3rem;color:var(--text)">Documento protegido</div>
     <div style="font-size:0.82rem;color:var(--muted);margin-bottom:1.2rem">Digite a senha para acessar</div>
     <input id="pw-input" type="password" placeholder="Senha" style="width:100%;padding:0.7rem 1rem;border:1px solid var(--border);border-radius:8px;font-size:0.9rem;font-family:Arial,sans-serif;outline:none;text-align:center" autofocus>
+    <button id="pw-btn" style="width:100%;margin-top:0.8rem;padding:0.7rem 1rem;background:var(--accent);color:white;border:none;border-radius:8px;font-size:0.9rem;font-weight:700;font-family:Arial,sans-serif;cursor:pointer;letter-spacing:0.3px">Entrar</button>
     <div id="pw-error" style="color:var(--red);font-size:0.78rem;margin-top:0.5rem;display:none">Senha incorreta</div>
   </div>
 </div>
 <script>
 (function(){
   if(sessionStorage.getItem('pw-ok')==='1'){document.getElementById('pw-gate').style.display='none'}
-  document.getElementById('pw-input').addEventListener('keydown',function(e){
-    if(e.key==='Enter'){
-      if(this.value==='milena2026'){
-        sessionStorage.setItem('pw-ok','1');
-        document.getElementById('pw-gate').style.display='none';
-      }else{
-        document.getElementById('pw-error').style.display='block';
-        this.value='';this.focus();
-      }
+  function tryLogin(){
+    var inp=document.getElementById('pw-input');
+    if(inp.value==='milena2026'){
+      sessionStorage.setItem('pw-ok','1');
+      document.getElementById('pw-gate').style.display='none';
+    }else{
+      document.getElementById('pw-error').style.display='block';
+      inp.value='';inp.focus();
     }
+  }
+  document.getElementById('pw-input').addEventListener('keydown',function(e){
+    if(e.key==='Enter') tryLogin();
   });
+  document.getElementById('pw-btn').addEventListener('click',tryLogin);
 })();
 </script>
 </body>
